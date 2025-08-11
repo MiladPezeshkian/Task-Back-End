@@ -235,36 +235,4 @@ node check-mongo.js
 # خروجی: تعداد اسناد recent (0 یا >0 بسته به اینکه consumer پیام‌ها را پردازش کرده باشد)
 ```
 
-لطفاً خروجیِ این فرمان‌ها (متن کامل لاگ‌های مرتبط) رو اینجا paste کن؛ من بررسی می‌کنم که مرحله 1 با موفقیت انجام شده یا اگر نکته‌ای هست راهنمایی دقیق می‌کنم.
 
----
-
-## نکات و «توصیه‌های خطا» که ممکنه باهاش روبرو بشی
-- خطای `Conflict. The container name "/rabbitmq-panto" is already in use` → `docker rm -f rabbitmq-panto` سپس دوباره run. (همون کاری که خودت انجام دادی.)
-- اگر consumer به صف وصل نمی‌شود: چک کن `RABBITMQ_URL` در `.env` درست باشد و backend قبل از RabbitMQ بالا نیامده باشد.
-- اگر `mongosh` داخل کانتینر خطا داد که `mongo` پیدا نشد: از `mongosh` (نسخه جدید) استفاده کن یا از اسکریپت node برای اتصال مستقیم به `MONGO_URL`.
-
----
-
-## نکته در مورد گیت و کامیت (پیشنهاد commit message برای تغییرات اخیر)
-برای تغییرات اخیر (اضافه شدن producer/send script و RabbitMQ consumer) این message پیشنهادی دقیق و حرفه‌ای است:
-
-```
-feat: add RabbitMQ consumer & producer sample + Mongo persistence
-
-- Implement RabbitMQ module in backend: connect, assert 'x-ray' queue and start consumer.
-- Add Signals schema & service to persist processed x-ray messages to MongoDB.
-- Add producer script (producer/src/send.ts / send-sample.js) to publish sample x-ray messages (uses x-ray.json).
-- Add check-mongo.js helper for quick DB verification.
-- Add Swagger docs exposure at /docs and /docs-json.
-- Update README with setup and verification steps.
-```
-
----
-
-اگر بخواهی، من الآن:
-1. همین README را در یک فایل `README.md` برات می‌سازم (متن بالا) — و/یا  
-2. یک **commit message** آماده و دقیق همراه با `git` commands برای push به گیت‌هاب می‌نویسم (مثلاً `git add . && git commit -m "..." && git push origin branch`)، یا  
-3. ادامه مرحله‌ اول را با چک خروجی‌هایی که فرستادی بررسی کنم و تأیید نهایی بدم.
-
-کدوم‌شو می‌خوای انجام بدم؟

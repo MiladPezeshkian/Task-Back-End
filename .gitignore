@@ -1,0 +1,17 @@
+# ignore node and build
+node_modules/
+dist/
+build/
+
+# env & logs
+.env
+*.log
+nest.log
+
+# editor/OS junk
+.vscode/
+.idea/
+.DS_Store
+
+# backups
+*.git_backup
